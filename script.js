@@ -27,24 +27,44 @@ function createGiftBox() {
     document.getElementById('giftContainer').appendChild(giftBox);
 }
 
+function createFallingStar() {
+    const star = document.createElement('div');
+    star.innerHTML = '⭐';
+    star.style.cssText = `
+        position: fixed;
+        font-size: ${Math.random() * 20 + 15}px;
+        left: ${Math.random() * 100}vw;
+        top: -50px;
+        pointer-events: none;
+        z-index: 1000;
+        animation: starFall ${Math.random() * 2 + 3}s linear forwards;
+        transform: rotate(${Math.random() * 360}deg);
+    `;
+    
+    document.body.appendChild(star);
+    
+    setTimeout(() => {
+        star.remove();
+    }, 5000);
+}
+
 // Show stars falling function
 function showMessage() {
-    // Create multiple falling stars
     for (let i = 0; i < 15; i++) {
         setTimeout(() => {
             createFallingStar();
-        }, i * 100); // Stagger the star creation
+        }, i * 100); 
     }
 }
 
-// Initialize
+
 setInterval(createParticle, 500);
 
 for (let i = 0; i < 6; i++) {
     createGiftBox();
 }
 
-// Add some interactive sparkles on mouse move
+
 document.addEventListener('mousemove', (e) => {
     if (Math.random() < 0.1) {
         const sparkle = document.createElement('div');
@@ -67,7 +87,6 @@ document.addEventListener('mousemove', (e) => {
     }
 });
 
-// Add sparkle and star fall animations
 const animationStyle = document.createElement('style');
 animationStyle.textContent = `
     @keyframes sparkleAnim {
@@ -88,21 +107,3 @@ animationStyle.textContent = `
     }
 `;
 document.head.appendChild(animationStyle);
-
-document.addEventListener("DOMContentLoaded", () => {
-    const container = document.querySelector(".container");
-
-    for (let i = 0; i < 50; i++) {
-        const particle = document.createElement("div");
-        particle.classList.add("particle");
-
-        const size = Math.random() * 5 + 2;
-        particle.style.width = `${size}px`;
-        particle.style.height = `${size}px`;
-
-        particle.style.left = `${Math.random() * 100}%`;
-        particle.style.top = `${Math.random() * 100}vh`;
-
-        container.appendChild(particle);
-    }
-});
